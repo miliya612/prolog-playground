@@ -1,0 +1,26 @@
+male(namihei).
+male(katsuo).
+male(masuo).
+male(tara).
+female(fune).
+female(sazae).
+female(wakame).
+
+child(sazae, namihei).
+child(katsuo, namihei).
+child(wakame, namihei).
+child(sazae, fune).
+child(katsuo, fune).
+child(wakame, fune).
+child(tara, sazae).
+child(tara, masuo).
+
+father(F,C) :- child(C,F), male(F).
+mother(M,C) :- child(C,M), female(M).
+grandfather(G,X) :- child(P,G), child(X,P), male(G).
+grandmother(G,X) :- child(P,G), child(X,P), female(G).
+
+sibling(X,Y) :- child(X,P), child(Y,P), X\==Y. 
+uncle(U,X) :- child(X,P), sibling(U,P), male(U).
+aunt(A,X) :- child(X,P1), sibling(A,P1), female(A).
+nephew(N,X) :- sibling(X,P), child(N,P).
